@@ -1,5 +1,5 @@
 import React from "react";
-import { Plane, MapPin, Calendar, Users } from "lucide-react";
+import { Plane, Calendar, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Hero = () => {

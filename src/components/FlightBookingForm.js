@@ -130,7 +130,7 @@ const FlightBookingForm = () => {
 
   return (
     <section id="flights" className="py-16 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -142,54 +142,39 @@ const FlightBookingForm = () => {
           </div>
 
           {/* Booking Form */}
-          <div className="card mb-8">
+          <div className="card mb-8 p-6 border rounded-lg shadow-sm">
             <form onSubmit={handleSubmit}>
               {/* Trip Type Selection */}
               <div className="flex justify-center mb-8">
                 <div className="flex bg-gray-100 rounded-lg p-1">
-                  <button
-                    type="button"
-                    className={`px-6 py-3 rounded-md font-medium transition-colors ${
-                      formData.tripType === "roundtrip"
-                        ? "bg-white text-blue-600 shadow-sm"
-                        : "text-gray-600 hover:text-gray-900"
-                    }`}
-                    onClick={() => handleInputChange("tripType", "roundtrip")}
-                  >
-                    Round Trip
-                  </button>
-                  <button
-                    type="button"
-                    className={`px-6 py-3 rounded-md font-medium transition-colors ${
-                      formData.tripType === "oneway"
-                        ? "bg-white text-blue-600 shadow-sm"
-                        : "text-gray-600 hover:text-gray-900"
-                    }`}
-                    onClick={() => handleInputChange("tripType", "oneway")}
-                  >
-                    One Way
-                  </button>
-                  <button
-                    type="button"
-                    className={`px-6 py-3 rounded-md font-medium transition-colors ${
-                      formData.tripType === "multicity"
-                        ? "bg-white text-blue-600 shadow-sm"
-                        : "text-gray-600 hover:text-gray-900"
-                    }`}
-                    onClick={() => handleInputChange("tripType", "multicity")}
-                  >
-                    Multi City
-                  </button>
+                  {["roundtrip", "oneway", "multicity"].map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      className={`px-6 py-3 rounded-md font-medium transition-colors ${
+                        formData.tripType === type
+                          ? "bg-white text-blue-600 shadow-sm"
+                          : "text-gray-600 hover:text-gray-900"
+                      }`}
+                      onClick={() => handleInputChange("tripType", type)}
+                    >
+                      {type === "roundtrip"
+                        ? "Round Trip"
+                        : type === "oneway"
+                        ? "One Way"
+                        : "Multi City"}
+                    </button>
+                  ))}
                 </div>
               </div>
 
               {/* Flight Details */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <div className="flex flex-col md:flex-row flex-wrap gap-4 mb-8">
                 {/* From City */}
-                <div className="input-group">
+                <div className="flex-1 min-w-[240px]">
                   <label className="flex items-center gap-1 text-gray-700 mb-1">
-                    <MapPin className="h-4 w-4 text-blue-600 inline-block align-middle me-1" />
-                    <span className="text-sm leading-none">From</span>
+                    <MapPin className="h-4 w-4 text-blue-600" />
+                    <span className="text-sm">From</span>
                   </label>
                   <select
                     value={formData.fromCity}
@@ -197,6 +182,7 @@ const FlightBookingForm = () => {
                       handleInputChange("fromCity", e.target.value)
                     }
                     required
+                    className="w-full p-3 border-2 border-gray-200 rounded-lg"
                   >
                     <option value="">Select departure city</option>
                     {airports.map((airport) => (
@@ -208,21 +194,21 @@ const FlightBookingForm = () => {
                 </div>
 
                 {/* Swap Button */}
-                <div className="flex-row mt-8">
+                <div className="flex items-end">
                   <button
                     type="button"
                     onClick={swapCities}
-                    className="w-full h-12 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                    className="w-full md:w-auto h-12 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg"
                   >
-                    <ArrowRightLeft className="h-5 w-5 text-gray-600" />
+                    <ArrowRightLeft className="h-5 w-5 text-gray-600 mx-auto" />
                   </button>
                 </div>
 
                 {/* To City */}
-                <div className="input-group">
+                <div className="flex-1 min-w-[240px]">
                   <label className="flex items-center gap-1 text-gray-700 mb-1">
-                    <MapPin className="h-4 w-4 text-blue-600 inline-block align-middle me-1" />
-                    <span className="text-sm leading-none">To</span>
+                    <MapPin className="h-4 w-4 text-blue-600" />
+                    <span className="text-sm">To</span>
                   </label>
                   <select
                     value={formData.toCity}
@@ -230,6 +216,7 @@ const FlightBookingForm = () => {
                       handleInputChange("toCity", e.target.value)
                     }
                     required
+                    className="w-full p-3 border-2 border-gray-200 rounded-lg"
                   >
                     <option value="">Select arrival city</option>
                     {airports.map((airport) => (
@@ -242,12 +229,12 @@ const FlightBookingForm = () => {
               </div>
 
               {/* Dates and Passengers */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <div className="flex flex-col md:flex-row flex-wrap gap-4 mb-8">
                 {/* Departure Date */}
-                <div className="input-group">
+                <div className="flex-1 min-w-[240px]">
                   <label className="flex items-center gap-1 text-gray-700 mb-1">
-                    <Calendar className="h-4 w-4 text-blue-600 inline-block align-middle me-1" />
-                    <span className="text-sm leading-none">Departure Date</span>
+                    <Calendar className="h-4 w-4 text-blue-600" />
+                    <span className="text-sm">Departure Date</span>
                   </label>
                   <DatePicker
                     selected={formData.departureDate}
@@ -255,59 +242,61 @@ const FlightBookingForm = () => {
                       handleInputChange("departureDate", date)
                     }
                     minDate={new Date()}
-                    className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none"
+                    className="w-full p-3 border-2 border-gray-200 rounded-lg"
                     dateFormat="MMM dd, yyyy"
                   />
                 </div>
 
                 {/* Return Date */}
                 {formData.tripType === "roundtrip" && (
-                  <div className="input-group">
+                  <div className="flex-1 min-w-[240px]">
                     <label className="flex items-center gap-1 text-gray-700 mb-1">
-                      <Calendar className="h-4 w-4 text-blue-600 inline-block align-middle me-1" />
-                      <span className="text-sm leading-none">Return Date</span>
+                      <Calendar className="h-4 w-4 text-blue-600" />
+                      <span className="text-sm">Return Date</span>
                     </label>
                     <DatePicker
                       selected={formData.returnDate}
                       onChange={(date) => handleInputChange("returnDate", date)}
                       minDate={formData.departureDate}
-                      className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none"
+                      className="w-full p-3 border-2 border-gray-200 rounded-lg"
                       dateFormat="MMM dd, yyyy"
                     />
                   </div>
                 )}
 
                 {/* Passengers */}
-                <div className="input-group">
+                <div className="flex-1 min-w-[240px]">
                   <label className="flex items-center gap-1 text-gray-700 mb-1">
-                    <Users className="h-4 w-4 text-blue-600 inline-block align-middle me-1" />
-                    <span className="text-sm leading-none">Passengers</span>
+                    <Users className="h-4 w-4 text-blue-600" />
+                    <span className="text-sm">Passengers</span>
                   </label>
                   <select
                     value={formData.passengers}
                     onChange={(e) =>
                       handleInputChange("passengers", parseInt(e.target.value))
                     }
+                    className="w-full p-3 border-2 border-gray-200 rounded-lg"
                   >
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                      <option key={num} value={num}>
-                        {num} {num === 1 ? "Passenger" : "Passengers"}
+                    {[...Array(9)].map((_, i) => (
+                      <option key={i + 1} value={i + 1}>
+                        {i + 1} {i === 0 ? "Passenger" : "Passengers"}
                       </option>
                     ))}
                   </select>
                 </div>
 
                 {/* Cabin Class */}
-                <div className="input-group">
+                <div className="flex-1 min-w-[240px]">
                   <label className="flex items-center gap-1 text-gray-700 mb-1">
-                    <Plane className="h-4 w-4 text-blue-600 inline-block align-middle me-1" />
-                    <span className="text-sm leading-none">Cabin Class</span>
+                    <Plane className="h-4 w-4 text-blue-600" />
+                    <span className="text-sm">Cabin Class</span>
                   </label>
                   <select
                     value={formData.cabinClass}
                     onChange={(e) =>
                       handleInputChange("cabinClass", e.target.value)
                     }
+                    className="w-full p-3 border-2 border-gray-200 rounded-lg"
                   >
                     <option value="economy">Economy</option>
                     <option value="premium_economy">Premium Economy</option>
@@ -322,7 +311,7 @@ const FlightBookingForm = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn btn-primary text-lg px-12 py-4 flex items-center space-x-2 mx-auto"
+                  className="btn btn-primary text-lg px-12 py-4 flex items-center justify-center gap-2 mx-auto"
                 >
                   {loading ? (
                     <>
@@ -342,7 +331,7 @@ const FlightBookingForm = () => {
 
           {/* Search Results */}
           {showResults && (
-            <div className="card">
+            <div className="card p-6 border rounded-lg shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
                 Available Flights
               </h3>
@@ -359,8 +348,8 @@ const FlightBookingForm = () => {
                       key={flight.id}
                       className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-6">
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div className="flex items-center gap-6">
                           <div className="text-center">
                             <div className="font-bold text-lg">
                               {flight.departure}
@@ -369,13 +358,7 @@ const FlightBookingForm = () => {
                               {formData.fromCity}
                             </div>
                           </div>
-
-                          <div className="flex items-center space-x-2">
-                            <div className="w-16 h-px bg-gray-300"></div>
-                            <ArrowRight className="h-4 w-4 text-gray-400" />
-                            <div className="w-16 h-px bg-gray-300"></div>
-                          </div>
-
+                          <ArrowRight className="h-5 w-5 text-gray-400" />
                           <div className="text-center">
                             <div className="font-bold text-lg">
                               {flight.arrival}
@@ -399,14 +382,13 @@ const FlightBookingForm = () => {
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div className="flex items-center space-x-4 text-sm text-gray-600">
+                      <div className="flex flex-col md:flex-row items-center justify-between mt-4 pt-4 border-t text-sm text-gray-600 gap-4">
+                        <div className="flex gap-4">
                           <span>Duration: {flight.duration}</span>
                           <span>Stops: {flight.stops}</span>
                           <span>Class: {flight.cabinClass}</span>
                         </div>
-
-                        <button className="btn btn-primary">
+                        <button className="btn btn-primary mt-2 md:mt-0">
                           Select Flight
                         </button>
                       </div>

@@ -41,37 +41,44 @@ const mockFlights = [
 const Flights = () => {
   const navigate = useNavigate();
   return (
-    <section className="py-16 bg-white min-h-[60vh]">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <h2 className="text-3xl font-bold mb-8">All Flights</h2>
-        <div className="space-y-4">
+    <section className="py-10 md:py-16 bg-white min-h-[60vh]">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center md:text-left">
+          All Flights
+        </h2>
+        <div className="space-y-6">
           {mockFlights.map((flight) => (
             <div
               key={flight.id}
-              className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow cursor-pointer"
+              className="border border-gray-200 rounded-lg p-4 md:p-6 hover:shadow-md transition-shadow cursor-pointer"
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-6">
-                  <div className="text-center">
-                    <div className="font-bold text-lg">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                {/* From -> To Info */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 text-center sm:text-left">
+                  <div>
+                    <div className="font-bold text-lg md:text-xl">
                       {flight.departureTime}
                     </div>
                     <div className="text-sm text-gray-600">From</div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-16 h-px bg-gray-300"></div>
+
+                  <div className="flex items-center justify-center my-2 sm:my-0 space-x-2">
+                    <div className="w-10 sm:w-16 h-px bg-gray-300" />
                     <ArrowRight className="h-4 w-4 text-gray-400" />
-                    <div className="w-16 h-px bg-gray-300"></div>
+                    <div className="w-10 sm:w-16 h-px bg-gray-300" />
                   </div>
-                  <div className="text-center">
-                    <div className="font-bold text-lg">
+
+                  <div>
+                    <div className="font-bold text-lg md:text-xl">
                       {flight.arrivalTime}
                     </div>
                     <div className="text-sm text-gray-600">To</div>
                   </div>
                 </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-blue-600">
+
+                {/* Price and Airline Info */}
+                <div className="text-center md:text-right">
+                  <div className="text-xl md:text-2xl font-bold text-blue-600">
                     ${flight.price}
                   </div>
                   <div className="text-sm text-gray-600">{flight.airline}</div>
@@ -80,13 +87,15 @@ const Flights = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                <div className="flex items-center space-x-4 text-sm text-gray-600">
+
+              {/* Footer Details */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4 pt-4 border-t border-gray-100 text-sm text-gray-600 gap-2">
+                <div className="flex flex-col sm:flex-row sm:space-x-6">
                   <span>Duration: {flight.duration}</span>
                   <span>Stops: {flight.stops}</span>
                   <span>Class: {flight.cabinClass}</span>
                 </div>
-                <div className="flex gap-2">
+                <div className="text-center sm:text-right mt-2 sm:mt-0">
                   <Link
                     to={`/book/${flight.id}`}
                     state={{ flight }}
