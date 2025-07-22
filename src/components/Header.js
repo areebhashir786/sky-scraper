@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Menu, X, Plane } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,36 +17,36 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="text-gray-700 hover:text-blue-600 transition-colors"
             >
               Home
-            </a>
-            <a
-              href="flights"
+            </Link>
+            <Link
+              to="/flights"
               className="text-gray-700 hover:text-blue-600 transition-colors"
             >
               Flights
-            </a>
-            <a
-              href="deals"
+            </Link>
+            <Link
+              to="/deals"
               className="text-gray-700 hover:text-blue-600 transition-colors"
             >
               Deals
-            </a>
-            <a
-              href="about"
+            </Link>
+            <Link
+              to="/about"
               className="text-gray-700 hover:text-blue-600 transition-colors"
             >
               About
-            </a>
-            <a
-              href="contact"
+            </Link>
+            <Link
+              to="/contact"
               className="text-gray-700 hover:text-blue-600 transition-colors"
             >
               Contact
-            </a>
+            </Link>
           </nav>
 
           {/* CTA Buttons */}
@@ -71,36 +72,36 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-100">
             <nav className="flex flex-col space-y-4">
-              <a
-                href="/"
+              <Link
+                to="/"
                 className="text-gray-700 hover:text-blue-600 transition-colors"
               >
                 Home
-              </a>
-              <a
-                href="flights"
+              </Link>
+              <Link
+                to="/flights"
                 className="text-gray-700 hover:text-blue-600 transition-colors"
               >
                 Flights
-              </a>
-              <a
-                href="#deals"
+              </Link>
+              <Link
+                to="/deals"
                 className="text-gray-700 hover:text-blue-600 transition-colors"
               >
                 Deals
-              </a>
-              <a
-                href="#about"
+              </Link>
+              <Link
+                to="/about"
                 className="text-gray-700 hover:text-blue-600 transition-colors"
               >
                 About
-              </a>
-              <a
-                href="#contact"
+              </Link>
+              <Link
+                to="/contact"
                 className="text-gray-700 hover:text-blue-600 transition-colors"
               >
                 Contact
-              </a>
+              </Link>
               <div className="flex flex-col space-y-2 pt-4 border-t border-gray-100">
                 <button className="btn btn-secondary w-full">Sign In</button>
                 <button className="btn btn-primary w-full">Sign Up</button>
